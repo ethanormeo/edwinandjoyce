@@ -1,36 +1,30 @@
-import SplitHeading from "./anim/SplitHeading";
 import Reveal from "./anim/Reveal";
 import { copy } from "@/lib/site";
 
 export default function Manifesto() {
   return (
-    <section id="intro" className="relative bg-paper py-[clamp(6rem,16vh,12rem)]">
+    <section id="intro" className="relative bg-paper py-[clamp(5rem,14vh,11rem)] border-t border-[var(--line)]">
       <div className="shell grid md:grid-cols-12 gap-y-10 gap-x-8 items-start">
-        <Reveal className="md:col-span-3 flex items-center gap-4 md:pt-6" >
-          <span className="eyebrow">Our craft</span>
-          <span className="hidden md:block w-16 h-px bg-[var(--line-strong)]" />
+        <Reveal className="md:col-span-3">
+          <span className="eyebrow">The studio</span>
         </Reveal>
         <div className="md:col-span-9">
-          <SplitHeading
+          <Reveal
             as="p"
-            className="display fluid-h3 text-ink max-w-[24ch]"
-            stagger={0.09}
+            className="display text-ink"
+            y={28}
           >
-            {copy.manifesto}
-          </SplitHeading>
-          <Reveal className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-soft" delay={0.1}>
-            <span className="text-[0.8rem] uppercase tracking-[0.2em]">Weddings</span>
-            <Dot /> <span className="text-[0.8rem] uppercase tracking-[0.2em]">Families</span>
-            <Dot /> <span className="text-[0.8rem] uppercase tracking-[0.2em]">Seniors</span>
-            <Dot /> <span className="text-[0.8rem] uppercase tracking-[0.2em]">Couples</span>
-            <Dot /> <span className="text-[0.8rem] uppercase tracking-[0.2em]">Portraits</span>
+            <span className="block" style={{ fontSize: "clamp(1.7rem,4vw,3.4rem)", fontStretch: "112%", lineHeight: 1.04 }}>
+              {copy.manifesto}
+            </span>
+          </Reveal>
+          <Reveal className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-ink-soft" delay={0.05}>
+            {["Weddings", "Couples", "Families", "Seniors", "Portraits"].map((g) => (
+              <span key={g} className="label">{g}</span>
+            ))}
           </Reveal>
         </div>
       </div>
     </section>
   );
-}
-
-function Dot() {
-  return <span className="w-1 h-1 rounded-full bg-gold inline-block" />;
 }

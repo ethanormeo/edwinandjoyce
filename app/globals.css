@@ -1,37 +1,31 @@
 @import "tailwindcss";
 
 /* ============================================================
-   EDWIN & JOYCE ORMEO — design system
-   warm · editorial · golden-hour · light-drenched
+   EDWIN & JOYCE — bold modern editorial
+   warm paper · black ink · one terracotta accent · the photos are the color
    ============================================================ */
 
 @theme {
-  --color-paper: #f5efe6;        /* warm bone */
-  --color-paper-deep: #ece2d3;   /* deeper sand */
-  --color-paper-soft: #faf6ef;
-  --color-ink: #1c1813;          /* warm espresso black */
-  --color-ink-soft: #6c5f4f;     /* muted taupe text */
-  --color-ink-faint: #9a8c79;
-  --color-gold: #ac7530;         /* refined amber-gold */
-  --color-gold-bright: #cf9c4d;
-  --color-clay: #9a5a3c;         /* terracotta accent */
-  --color-night: #161210;        /* warm near-black */
-  --color-night-2: #221b15;
-  --color-night-soft: #c9bba6;   /* text on night */
+  --color-paper: #f4f0e8;     /* warm paper */
+  --color-paper-alt: #ebe5d9; /* deeper sand band */
+  --color-ink: #15120e;       /* near-black */
+  --color-ink-soft: #6b6155;  /* muted */
+  --color-night: #14110d;     /* dark-section bg */
+  --color-night-soft: #b8ad9c;
+  --color-accent: #c2562e;    /* terracotta, used sparingly */
 
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-archivo);
+  --font-display: var(--font-archivo);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-soft: cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 :root {
-  --line: color-mix(in srgb, var(--color-ink) 13%, transparent);
-  --line-strong: color-mix(in srgb, var(--color-ink) 26%, transparent);
-  --shadow-soft: 0 30px 80px -40px rgba(28, 24, 19, 0.45);
-  --gutter: clamp(1.25rem, 5vw, 6rem);
-  --maxw: 90rem;
+  --line: rgba(21, 18, 14, 0.14);
+  --line-strong: rgba(21, 18, 14, 0.28);
+  --gutter: clamp(1.25rem, 5vw, 5.5rem);
+  --maxw: 92rem;
+  --nav-h: 72px;
 }
 
 * { box-sizing: border-box; }
@@ -40,7 +34,6 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background: var(--color-paper);
-  /* Lenis drives scroll; keep native smooth off to avoid conflict */
   scroll-behavior: auto;
 }
 
@@ -48,9 +41,11 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-feature-settings: "kern", "liga", "calt", "ss01";
+  font-feature-settings: "kern", "liga", "calt";
   overflow-x: clip;
   margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
 }
 
 /* Lenis */
@@ -59,78 +54,60 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
-::selection { background: var(--color-gold); color: var(--color-paper-soft); }
+::selection { background: var(--color-ink); color: var(--color-paper); }
 
 /* ---------- typography ---------- */
-.font-display { font-family: var(--font-display), Georgia, serif; }
+.font-display { font-family: var(--font-display), sans-serif; }
 
+/* big editorial display — Archivo at expanded width, heavy, tight, sentence case */
 .display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 350;
-  line-height: 0.96;
-  letter-spacing: -0.018em;
-  font-optical-sizing: auto;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-stretch: 118%;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
-.display em { font-style: italic; font-weight: 340; }
 
 .eyebrow {
   font-family: var(--font-sans), sans-serif;
   text-transform: uppercase;
-  letter-spacing: clamp(0.2em, 1.2vw, 0.32em);
-  font-size: clamp(0.62rem, 2.6vw, 0.7rem);
-  font-weight: 600;
-  color: #8a5a1e; /* AA on warm paper; night sections override with gold-bright */
+  letter-spacing: 0.16em;
+  font-size: clamp(0.66rem, 1.4vw, 0.74rem);
+  font-weight: 500;
+  color: var(--color-ink-soft);
 }
 
-/* keyboard focus visibility (custom cursor hides the pointer otherwise) */
-:focus-visible {
-  outline: 2px solid var(--color-gold-bright);
-  outline-offset: 3px;
-  border-radius: 2px;
+.label {
+  font-family: var(--font-sans), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
-:focus:not(:focus-visible) { outline: none; }
 
 .lede {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 330;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--color-ink-soft);
 }
 
-.fluid-hero { font-size: clamp(3.2rem, 12vw, 12rem); }
-.fluid-h2   { font-size: clamp(2.2rem, 6vw, 5.5rem); }
-.fluid-h3   { font-size: clamp(1.6rem, 3.2vw, 3rem); }
-.fluid-lede { font-size: clamp(1.3rem, 2.4vw, 2.3rem); }
+.tnum { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+
+/* fluid scale — display-heavy */
+.fluid-hero { font-size: clamp(3.2rem, 9vw, 7.5rem); }
+.fluid-h2   { font-size: clamp(2.4rem, 6.2vw, 5.6rem); }
+.fluid-h3   { font-size: clamp(1.7rem, 3vw, 2.6rem); }
+.fluid-lede { font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
+.fluid-stat { font-size: clamp(3.4rem, 10vw, 8rem); }
 
 /* ---------- layout helpers ---------- */
 .shell { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 .rule { height: 1px; background: var(--line); width: 100%; }
 
-/* ---------- film grain (filmic warmth) ---------- */
-.grain::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ---------- motion primitives (JS-enhanced, CSS-safe defaults) ---------- */
-/* will-change is applied imperatively during the tween, not statically */
-/* Only hide pre-animation when JS is present (no-JS users see everything) */
-html.js [data-reveal] { opacity: 0; transform: translateY(var(--ry, 2.4rem)); }
-html.js [data-reveal-children] > * { opacity: 0; transform: translateY(var(--ry, 2.2rem)); }
-.img-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* overflow clip only — callers set the positioning context (relative/absolute) */
-.frame { overflow: hidden; }
-
-/* magnetic / link underline */
-.link-underline {
-  position: relative;
-  display: inline-block;
-}
+/* ---------- links ---------- */
+.link-underline { position: relative; display: inline-block; }
 .link-underline::after {
   content: "";
   position: absolute;
@@ -139,53 +116,50 @@ html.js [data-reveal-children] > * { opacity: 0; transform: translateY(var(--ry,
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.6s var(--ease-out-expo);
+  transition: transform 0.5s var(--ease-out-expo);
 }
 .link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
 
-/* buttons */
-.btn {
-  --bg: var(--color-ink);
-  --fg: var(--color-paper-soft);
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7em;
-  padding: 1.05em 2em;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--fg);
-  background: var(--bg);
-  overflow: hidden;
-  isolation: isolate;
-  transition: color 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+/* arrow link (with terracotta arrow) */
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 0.55em;
+  font-family: var(--font-sans), sans-serif;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--color-ink);
 }
-.btn::before {
-  content: "";
-  position: absolute; inset: 0; z-index: -1;
-  background: var(--color-gold);
-  transform: translateY(101%);
-  transition: transform 0.6s var(--ease-out-expo);
-}
-.btn:hover { transform: translateY(-2px); }
-.btn:hover::before { transform: translateY(0); }
-.btn-ghost { --bg: transparent; --fg: var(--color-ink); border: 1px solid var(--line-strong); }
-.btn-ghost:hover { color: var(--color-paper-soft); }
+.arrow-link .arw { color: var(--color-accent); transition: transform 0.45s var(--ease-out-expo); }
+.arrow-link:hover .arw { transform: translateX(5px); }
 
-/* hide scrollbar on horizontal rails */
+/* ---------- buttons (flat, sharp, no pill/gold) ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  padding: 1.05em 1.9em;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid var(--color-ink);
+  transition: background 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+}
+.btn:hover { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-paper); }
+.btn-accent { background: var(--color-accent); border-color: var(--color-accent); }
+.btn-accent:hover { background: var(--color-ink); border-color: var(--color-ink); }
+
+/* hide scrollbar on rails */
 .no-bar::-webkit-scrollbar { display: none; }
 .no-bar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* gold gradient text */
-.text-gold-grad {
-  background: linear-gradient(100deg, var(--color-gold) 0%, var(--color-gold-bright) 55%, var(--color-clay) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+.text-accent { color: var(--color-accent); }
+
+/* ---------- motion primitives ---------- */
+html.js [data-reveal] { opacity: 0; transform: translateY(var(--ry, 1.4rem)); }
+html.js [data-reveal-children] > * { opacity: 0; transform: translateY(var(--ry, 1.4rem)); }
+.frame { overflow: hidden; }
+
+/* keyboard focus */
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {

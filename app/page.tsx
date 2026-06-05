@@ -1,13 +1,12 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
-import SignatureGallery from "@/components/SignatureGallery";
 import CategoryShowcase from "@/components/CategoryShowcase";
-import Studio from "@/components/Studio";
+import SignatureGallery from "@/components/SignatureGallery";
 import Experience from "@/components/Experience";
+import Studio from "@/components/Studio";
 import StatsBand from "@/components/StatsBand";
 import Quote from "@/components/Quote";
-import Marquee from "@/components/Marquee";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -20,13 +19,12 @@ export default function Home() {
       <main>
         <Hero />
         <Manifesto />
-        <SignatureGallery />
         <CategoryShowcase />
-        <Studio />
+        <SignatureGallery />
         <Experience />
+        <Studio />
         <StatsBand />
         <Quote />
-        <Marquee />
         <Contact />
       </main>
       <Footer />

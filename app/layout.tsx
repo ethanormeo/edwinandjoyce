@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 
-const fraunces = Fraunces({
+// One variable grotesk superfamily carries the whole system.
+// wdth axis (up to 125) gives the wide "Expanded" masthead stance for display.
+const archivo = Archivo({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  axes: ["wdth"],
   display: "swap",
-  variable: "--font-fraunces",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
+  variable: "--font-archivo",
 });
 
 const SITE = "https://edwinandjoyce.com";
@@ -23,10 +18,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
     default: "Edwin & Joyce Ormeo Photography — Austin, Texas",
-    template: "%s · Edwin & Joyce Ormeo Photography",
+    template: "%s · Edwin & Joyce",
   },
   description:
-    "Husband-and-wife photographers in Austin, Texas. Warm, golden-hour wedding, family, senior & portrait photography across the Texas Hill Country.",
+    "Edwin & Joyce — a husband-and-wife photography studio in Austin, Texas. Natural-light weddings, couples, families, seniors & portraits across the Texas Hill Country.",
   keywords: [
     "Austin photographer",
     "Austin wedding photographer",
@@ -43,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Edwin & Joyce Ormeo Photography",
     title: "Edwin & Joyce Ormeo Photography — Austin, Texas",
     description:
-      "Warm, golden-hour wedding, family, senior & portrait photography in Austin & the Texas Hill Country.",
+      "Natural-light weddings, families, seniors & portraits in Austin & the Texas Hill Country.",
     images: [{ url: "/img/family/depottey.webp", width: 1024, height: 682 }],
   },
   twitter: { card: "summary_large_image" },
@@ -54,11 +49,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${fraunces.variable} ${inter.variable} grain`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={archivo.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -67,7 +58,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Cursor />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
