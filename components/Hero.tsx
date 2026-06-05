@@ -1,37 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { gallery } from "@/lib/site";
-
-// opening image — Tiffany & Kenny, golden-hour couple (faces centered, crops well)
-const heroShot =
-  gallery.sections.weddings.find((s) => s.src.includes("tiffanyandkenny")) ||
-  gallery.sections.weddings[1] ||
-  gallery.heroes[0];
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
-  const photo = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".hero-name-inner", { yPercent: 115, duration: 0.95, delay: 0.15 })
-        .from(".hero-eyebrow", { opacity: 0, y: 12, duration: 0.7 }, 0.25)
+      tl.from(".hero-mast", { yPercent: 112, duration: 1, delay: 0.15 })
+        .from(".hero-descriptor", { opacity: 0, y: 14, duration: 0.7 }, "-=0.45")
         .from(".hero-sub", { opacity: 0, y: 16, duration: 0.7 }, "-=0.45")
         .from(".hero-cta", { opacity: 0, y: 16, duration: 0.7 }, "-=0.5")
-        .from(".hero-tick", { opacity: 0, duration: 0.6 }, "-=0.3");
-
-      // very gentle photo parallax
-      gsap.to(photo.current, {
-        yPercent: 6,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
+        .from(".hero-corner", { opacity: 0, duration: 0.7, stagger: 0.08 }, "-=0.5");
     }, root);
     return () => ctx.revert();
   }, []);
@@ -40,53 +24,46 @@ export default function Hero() {
     <section
       ref={root}
       id="top"
-      className="relative min-h-[100svh] grid grid-cols-1 md:grid-cols-[46fr_54fr] bg-paper"
+      className="relative min-h-[100svh] bg-paper flex flex-col justify-between overflow-hidden"
     >
-      {/* TYPE PANEL */}
-      <div className="order-2 md:order-1 relative flex flex-col justify-center md:border-r border-[var(--line-strong)] px-[var(--gutter)] py-16 md:py-0">
-        <span className="hero-eyebrow eyebrow block mb-7 md:mb-9 pb-4 border-b border-[var(--line)] max-w-[34ch]">
-          Weddings · Couples · Families · Portraits — Austin, TX
+      {/* top row */}
+      <div className="shell pt-[calc(var(--nav-h)+clamp(1.5rem,5vh,3rem))] flex items-start justify-between gap-6">
+        <span className="hero-corner eyebrow max-w-[42ch]">
+          Weddings · Couples · Families · Seniors · Portraits
         </span>
-
-        <h1
-          className="display text-ink overflow-hidden"
-          style={{ fontSize: "clamp(2.9rem, 8.5vw, 7.2rem)", lineHeight: 0.92 }}
-        >
-          <span className="hero-name-inner block">Edwin &amp; Joyce</span>
-        </h1>
-
-        <p className="hero-sub lede fluid-lede mt-7 max-w-[34ch]">
-          A husband-and-wife studio chasing the last warm light of the day — across Austin &amp; the Texas Hill Country.
-        </p>
-
-        <div className="hero-cta mt-10">
-          <a href="#work" className="arrow-link link-underline">
-            View work <span className="arw">&rarr;</span>
-          </a>
-        </div>
-
-        <a href="#intro" className="hero-tick absolute bottom-7 left-[var(--gutter)] label text-ink-soft hidden md:block">
-          Scroll ↓
-        </a>
+        <span className="hero-corner eyebrow hidden sm:block">Austin, Texas</span>
       </div>
 
-      {/* PHOTO */}
-      <div className="order-1 md:order-2 relative h-[72svh] md:h-auto overflow-hidden">
-        <div ref={photo} className="absolute inset-[-4%]">
-          <Image
-            src={heroShot.src}
-            alt={`Natural-light portrait — Edwin & Joyce Ormeo Photography, Austin`}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 54vw"
-            placeholder="blur"
-            blurDataURL={heroShot.blur}
-            className="object-cover object-center"
-          />
+      {/* center masthead */}
+      <div className="shell flex-1 flex flex-col justify-center py-10">
+        <h1 className="display text-ink" style={{ fontSize: "clamp(2.7rem, 10.5vw, 9.5rem)", lineHeight: 0.9, letterSpacing: "-0.035em", fontStretch: "108%" }}>
+          <span className="block overflow-hidden pb-[0.06em]">
+            <span className="hero-mast block">
+              Edwin &amp; Joyce<br />Photography
+            </span>
+          </span>
+        </h1>
+
+        <div className="hero-descriptor mt-8 flex items-center gap-5 flex-wrap">
+          <span className="label text-ink-soft">Austin &amp; the Texas Hill Country</span>
+          <span className="hidden sm:block h-px w-16 bg-[var(--line-strong)]" />
+          <span className="label text-accent">Natural light · Est. ~2007</span>
         </div>
-        <span className="absolute right-3 bottom-5 z-10 label text-paper/80 [writing-mode:vertical-rl] rotate-180 tracking-[0.22em] hidden md:block">
-          Austin · TX
-        </span>
+
+        <p className="hero-sub lede fluid-lede mt-8 max-w-[46ch]">
+          A husband-and-wife studio chasing the last warm light of the day — weddings, families, seniors &amp; portraits, made to feel exactly like the moment did.
+        </p>
+
+        <div className="hero-cta mt-10 flex items-center gap-8">
+          <a href="#work" className="btn">View the work</a>
+          <a href="#contact" className="arrow-link link-underline">Inquire <span className="arw">&rarr;</span></a>
+        </div>
+      </div>
+
+      {/* bottom row */}
+      <div className="shell pb-7 flex items-end justify-between border-t border-[var(--line)] pt-5">
+        <a href="#intro" className="hero-corner label text-ink-soft">Scroll ↓</a>
+        <span className="hero-corner label text-ink-soft hidden sm:block">Edwin &amp; Joyce Ormeo</span>
       </div>
     </section>
   );
