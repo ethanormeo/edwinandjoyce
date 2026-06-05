@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { gallery } from "@/lib/site";
 
-// one strong vertical golden-hour client image for the right panel
+// opening image — Tiffany & Kenny, golden-hour couple (faces centered, crops well)
 const heroShot =
-  gallery.sections.seniors.find((s) => s.orient === "portrait") ||
-  gallery.heroes.find((h) => h.orient === "portrait") ||
+  gallery.sections.weddings.find((s) => s.src.includes("tiffanyandkenny")) ||
+  gallery.sections.weddings[1] ||
   gallery.heroes[0];
 
 export default function Hero() {
